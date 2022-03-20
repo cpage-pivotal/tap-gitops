@@ -40,7 +40,7 @@ spec:
       - env:
         - name: JAVA_TOOL_OPTIONS
           value: -Dmanagement.endpoint.health.probes.add-additional-paths="true" -Dmanagement.endpoint.health.show-details=always -Dmanagement.endpoints.web.base-path="/actuator" -Dmanagement.endpoints.web.exposure.include=* -Dmanagement.health.probes.enabled="true" -Dmanagement.server.port="8081" -Dserver.port="8080" -Dserver.shutdown.grace-period="24s"
-        image: harbor.contour.e2e.corby.cc/tap/supply-chain/gitops-web-app-default@sha256:bca921d113eb5a922584c647342cc56a80f2077a1278c5d9ac2f7c356663554f
+        image: harbor.contour.e2e.corby.cc/tap/supply-chain/gitops-web-app-default@sha256:a05a3197c847961c746793350889473b85d830140ed31aeef64bf587c2dfd538
         name: workload
         ports:
         - containerPort: 8080
