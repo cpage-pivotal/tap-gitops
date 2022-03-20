@@ -1,12 +1,12 @@
 apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
-  name: gitops-web-app
+  name: tanzu-java-web-app
   labels:
-    app.kubernetes.io/part-of: gitops-web-app
+    app.kubernetes.io/part-of: tanzu-java-web-app
     apps.tanzu.vmware.com/workload-type: web
     app.kubernetes.io/component: run
-    carto.run/workload-name: gitops-web-app
+    carto.run/workload-name: tanzu-java-web-app
 spec:
   template:
     metadata:
@@ -24,12 +24,12 @@ spec:
           appliveview-sample/app-live-view-systemproperties
         developer.conventions/target-containers: workload
         kubectl.kubernetes.io/last-applied-configuration: |
-          {"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"annotations":{},"labels":{"app.kubernetes.io/part-of":"gitops-web-app","apps.tanzu.vmware.com/workload-type":"web"},"name":"gitops-web-app","namespace":"default"},"spec":{"params":[{"name":"annotations","value":{"autoscaling.knative.dev/minScale":"1"}},{"name":"gitops_repository","value":"ssh://git@github.com/cpage-pivotal/tap-gitops"}],"source":{"git":{"ref":{"branch":"main"},"url":"https://github.com/cpage-pivotal/tanzu-java-web-app"}}}}
+          {"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"annotations":{},"labels":{"app.kubernetes.io/part-of":"tanzu-java-web-app","apps.tanzu.vmware.com/workload-type":"web"},"name":"tanzu-java-web-app","namespace":"default"},"spec":{"params":[{"name":"annotations","value":{"autoscaling.knative.dev/minScale":"1"}},{"name":"gitops_repository","value":"ssh://git@github.com/cpage-pivotal/tap-gitops"}],"source":{"git":{"ref":{"branch":"main"},"url":"https://github.com/cpage-pivotal/tanzu-java-web-app"}}}}
       labels:
         app.kubernetes.io/component: run
-        app.kubernetes.io/part-of: gitops-web-app
+        app.kubernetes.io/part-of: tanzu-java-web-app
         apps.tanzu.vmware.com/workload-type: web
-        carto.run/workload-name: gitops-web-app
+        carto.run/workload-name: tanzu-java-web-app
         conventions.apps.tanzu.vmware.com/framework: spring-boot
         tanzu.app.live.view: "true"
         tanzu.app.live.view.application.actuator.port: "8081"
@@ -40,7 +40,7 @@ spec:
       - env:
         - name: JAVA_TOOL_OPTIONS
           value: -Dmanagement.endpoint.health.probes.add-additional-paths="true" -Dmanagement.endpoint.health.show-details=always -Dmanagement.endpoints.web.base-path="/actuator" -Dmanagement.endpoints.web.exposure.include=* -Dmanagement.health.probes.enabled="true" -Dmanagement.server.port="8081" -Dserver.port="8080" -Dserver.shutdown.grace-period="24s"
-        image: harbor.contour.e2e.corby.cc/tap/supply-chain/gitops-web-app-default@sha256:a05a3197c847961c746793350889473b85d830140ed31aeef64bf587c2dfd538
+        image: harbor.contour.e2e.corby.cc/tap/supply-chain/tanzu-java-web-app-default@sha256:d138202f780a1e1c303ebad9b9c452443f91e893fa5de121343d0a1bb3a15483
         name: workload
         ports:
         - containerPort: 8080
