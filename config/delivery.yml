@@ -39,7 +39,7 @@ spec:
       - env:
         - name: JAVA_TOOL_OPTIONS
           value: -Dmanagement.endpoint.health.probes.add-additional-paths="true" -Dmanagement.endpoint.health.show-details=always -Dmanagement.endpoints.web.base-path="/actuator" -Dmanagement.endpoints.web.exposure.include=* -Dmanagement.health.probes.enabled="true" -Dmanagement.server.port="8081" -Dserver.port="8080" -Dserver.shutdown.grace-period="24s"
-        image: harbor.contour.e2e.corby.cc/tap/supply-chain/spring-sensors-producer-default@sha256:bc3dfa4a4355cf157d1d2cffd4f474b7c04250468eb7e72ab6de7042c0c651d4
+        image: harbor.contour.e2e.corby.cc/tap/supply-chain/spring-sensors-producer-default@sha256:b8169c7898bb1a60c3b63f4e567ec4f9dd8e287db3946325f8be314c2bef395a
         name: workload
         ports:
         - containerPort: 8080
