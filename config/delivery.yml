@@ -28,6 +28,8 @@ spec:
           appliveview-sample/app-live-view-systemproperties
         developer.conventions/target-containers: workload
         kapp.k14s.io/identity: v1;default/carto.run/Workload/spring-sensors-tanzu-developer-connect-w01-s012;carto.run/v1alpha1
+        kapp.k14s.io/original: '{"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"labels":{"app.kubernetes.io/part-of":"spring-sensors","apps.tanzu.vmware.com/workload-type":"web","kapp.k14s.io/app":"1652452801393659671","kapp.k14s.io/association":"v1.cb211925bf8b87f7ae264f8b19352a68"},"name":"spring-sensors-tanzu-developer-connect-w01-s012","namespace":"default"},"spec":{"params":[{"name":"annotations","value":{"autoscaling.knative.dev/minScale":"1"}},{"name":"gitops_repository","value":"ssh://git@github.com/cpage-pivotal/tap-gitops"},{"name":"gitops_branch","value":"spring-sensors-tanzu-developer-connect-w01-s012"}],"source":{"git":{"ref":{"branch":"main"},"url":"https://gitea.tap.corby.cc/gitea_admin/tanzu-developer-connect-w01-s012-1658413853.git"}}}}'
+        kapp.k14s.io/original-diff-md5: c6e94dc94aed3401b5d0f26ed6c0bff3
         services.conventions.apps.tanzu.vmware.com/mysql: mysql-connector-java/8.0.27
       labels:
         app.kubernetes.io/component: run
