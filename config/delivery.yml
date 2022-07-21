@@ -22,12 +22,13 @@ spec:
           spring-boot-convention/spring-boot-web
           spring-boot-convention/spring-boot-actuator
           spring-boot-convention/service-intent-mysql
-          appliveview-sample/app-live-view-connector
-          appliveview-sample/app-live-view-appflavours
+          appliveview-sample/app-live-view-appflavour-check
+          appliveview-sample/app-live-view-connector-boot
+          appliveview-sample/app-live-view-appflavours-boot
           appliveview-sample/app-live-view-systemproperties
         developer.conventions/target-containers: workload
         kapp.k14s.io/identity: v1;default/carto.run/Workload/spring-sensors-tanzu-developer-connect-w01-s012;carto.run/v1alpha1
-        kapp.k14s.io/original: '{"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"labels":{"app.kubernetes.io/part-of":"spring-sensors","apps.tanzu.vmware.com/workload-type":"web","kapp.k14s.io/app":"1652452801393659671","kapp.k14s.io/association":"v1.cb211925bf8b87f7ae264f8b19352a68"},"name":"spring-sensors-tanzu-developer-connect-w01-s012","namespace":"default"},"spec":{"params":[{"name":"annotations","value":{"autoscaling.knative.dev/minScale":"1"}},{"name":"gitops_repository","value":"ssh://git@github.com/cpage-pivotal/tap-gitops"},{"name":"gitops_branch","value":"spring-sensors-tanzu-developer-connect-w01-s012"}],"source":{"git":{"ref":{"branch":"main"},"url":"https://gitea.tap.corby.cc/gitea_admin/tanzu-developer-connect-w01-s012-1653418909.git"}}}}'
+        kapp.k14s.io/original: '{"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"labels":{"app.kubernetes.io/part-of":"spring-sensors","apps.tanzu.vmware.com/workload-type":"web","kapp.k14s.io/app":"1652452801393659671","kapp.k14s.io/association":"v1.cb211925bf8b87f7ae264f8b19352a68"},"name":"spring-sensors-tanzu-developer-connect-w01-s012","namespace":"default"},"spec":{"params":[{"name":"annotations","value":{"autoscaling.knative.dev/minScale":"1"}},{"name":"gitops_repository","value":"ssh://git@github.com/cpage-pivotal/tap-gitops"},{"name":"gitops_branch","value":"spring-sensors-tanzu-developer-connect-w01-s012"}],"source":{"git":{"ref":{"branch":"main"},"url":"https://gitea.tap.corby.cc/gitea_admin/tanzu-developer-connect-w01-s012-1658413853.git"}}}}'
         kapp.k14s.io/original-diff-md5: c6e94dc94aed3401b5d0f26ed6c0bff3
         services.conventions.apps.tanzu.vmware.com/mysql: mysql-connector-java/8.0.27
       labels:
@@ -42,13 +43,13 @@ spec:
         tanzu.app.live.view: "true"
         tanzu.app.live.view.application.actuator.port: "8081"
         tanzu.app.live.view.application.flavours: spring-boot
-        tanzu.app.live.view.application.name: spring-sensors
+        tanzu.app.live.view.application.name: spring-sensors-tanzu-developer-connect-w01-s012
     spec:
       containers:
       - env:
         - name: JAVA_TOOL_OPTIONS
-          value: -Dmanagement.endpoint.health.probes.add-additional-paths="true" -Dmanagement.endpoint.health.show-details=always -Dmanagement.endpoints.web.base-path="/actuator" -Dmanagement.endpoints.web.exposure.include=* -Dmanagement.health.probes.enabled="true" -Dmanagement.server.port="8081" -Dserver.port="8080" -Dserver.shutdown.grace-period="24s"
-        image: harbor.contour.e2e.corby.cc/tap/supply-chain/spring-sensors-tanzu-developer-connect-w01-s012-default@sha256:03123048d43a0ea9454062422fa76eef0abc7e9f5617354c37279f2012fb2645
+          value: -Dmanagement.endpoint.health.show-details=always -Dmanagement.endpoints.web.base-path="/actuator" -Dmanagement.endpoints.web.exposure.include=* -Dmanagement.server.port="8081" -Dserver.port="8080" -Dserver.shutdown.grace-period="24s"
+        image: harbor.contour.e2e.corby.cc/tap/supply-chain/spring-sensors-tanzu-developer-connect-w01-s012-default@sha256:f8fa0df51784f09ac3faf5ddcbb56bd5401e47372432eb38887113c483c52595
         name: workload
         ports:
         - containerPort: 8080
