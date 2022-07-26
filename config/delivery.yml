@@ -1,0 +1,61 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: spring-sensors-tap-demos-w04-s718
+  labels:
+    app.kubernetes.io/part-of: spring-sensors
+    apps.tanzu.vmware.com/workload-type: web
+    kapp.k14s.io/app: "1652452801393659671"
+    kapp.k14s.io/association: v1.e263a2a6b614f2b8dad562e11d6f9f3c
+    app.kubernetes.io/component: run
+    carto.run/workload-name: spring-sensors-tap-demos-w04-s718
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/minScale: "1"
+        boot.spring.io/actuator: http://:8081/actuator
+        boot.spring.io/version: 2.5.6
+        conventions.apps.tanzu.vmware.com/applied-conventions: |-
+          spring-boot-convention/spring-boot
+          spring-boot-convention/spring-boot-graceful-shutdown
+          spring-boot-convention/spring-boot-web
+          spring-boot-convention/spring-boot-actuator
+          spring-boot-convention/service-intent-mysql
+          appliveview-sample/app-live-view-appflavour-check
+          appliveview-sample/app-live-view-connector-boot
+          appliveview-sample/app-live-view-appflavours-boot
+          appliveview-sample/app-live-view-systemproperties
+        developer.conventions/target-containers: workload
+        kapp.k14s.io/identity: v1;default/carto.run/Workload/spring-sensors-tap-demos-w04-s718;carto.run/v1alpha1
+        kapp.k14s.io/original: '{"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"labels":{"app.kubernetes.io/part-of":"spring-sensors","apps.tanzu.vmware.com/workload-type":"web","kapp.k14s.io/app":"1652452801393659671","kapp.k14s.io/association":"v1.e263a2a6b614f2b8dad562e11d6f9f3c"},"name":"spring-sensors-tap-demos-w04-s718","namespace":"default"},"spec":{"params":[{"name":"annotations","value":{"autoscaling.knative.dev/minScale":"1"}},{"name":"gitops_repository","value":"ssh://git@github.com/cpage-pivotal/tap-gitops"},{"name":"gitops_branch","value":"spring-sensors-tap-demos-w04-s718"}],"source":{"git":{"ref":{"branch":"main"},"url":"https://gitea.tap.corby.cc/gitea_admin/tap-demos-w04-s718-1658791830.git"}}}}'
+        kapp.k14s.io/original-diff-md5: c6e94dc94aed3401b5d0f26ed6c0bff3
+        services.conventions.apps.tanzu.vmware.com/mysql: mysql-connector-java/8.0.27
+      labels:
+        app.kubernetes.io/component: run
+        app.kubernetes.io/part-of: spring-sensors
+        apps.tanzu.vmware.com/workload-type: web
+        carto.run/workload-name: spring-sensors-tap-demos-w04-s718
+        conventions.apps.tanzu.vmware.com/framework: spring-boot
+        kapp.k14s.io/app: "1652452801393659671"
+        kapp.k14s.io/association: v1.e263a2a6b614f2b8dad562e11d6f9f3c
+        services.conventions.apps.tanzu.vmware.com/mysql: workload
+        tanzu.app.live.view: "true"
+        tanzu.app.live.view.application.actuator.port: "8081"
+        tanzu.app.live.view.application.flavours: spring-boot
+        tanzu.app.live.view.application.name: spring-sensors-tap-demos-w04-s718
+    spec:
+      containers:
+      - env:
+        - name: JAVA_TOOL_OPTIONS
+          value: -Dmanagement.endpoint.health.show-details=always -Dmanagement.endpoints.web.base-path="/actuator" -Dmanagement.endpoints.web.exposure.include=* -Dmanagement.server.port="8081" -Dserver.port="8080" -Dserver.shutdown.grace-period="24s"
+        image: harbor.contour.e2e.corby.cc/tap/supply-chain/spring-sensors-tap-demos-w04-s718-default@sha256:952daf456ae6ccf1135689e33ef17690e034f056ee30491517077de02fcd2234
+        name: workload
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        resources: {}
+        securityContext:
+          runAsUser: 1000
+      serviceAccountName: default
+
