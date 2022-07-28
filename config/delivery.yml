@@ -50,7 +50,7 @@ spec:
       - env:
         - name: JAVA_TOOL_OPTIONS
           value: -Dmanagement.endpoint.health.probes.add-additional-paths="true" -Dmanagement.endpoint.health.show-details=always -Dmanagement.endpoints.web.base-path="/actuator" -Dmanagement.endpoints.web.exposure.include=* -Dmanagement.health.probes.enabled="true" -Dmanagement.server.port="8081" -Dserver.port="8080" -Dserver.shutdown.grace-period="24s"
-        image: harbor.contour.e2e.corby.cc/tap/supply-chain/spring-sensors-tap-demos-w04-s763-default@sha256:231f26579ae149980491014232bbd6941397952dc069eeb1cf233a44ba83c9d1
+        image: harbor.contour.e2e.corby.cc/tap/supply-chain/spring-sensors-tap-demos-w04-s763-default@sha256:e48ab8c2bbadb9668f750b9c0ab7aa1c07477d9a9fbcf438a32c25036fbb2eb7
         livenessProbe:
           httpGet:
             path: /livez
