@@ -9,12 +9,6 @@ metadata:
     app.kubernetes.io/component: deliverable
     app.tanzu.vmware.com/deliverable-type: edge
 spec:
-  params:
-  - name: gitops_ssh_secret
-    value: ""
   source:
-    git:
-      url: ssh://git@github.com/cpage-pivotal/tap-gitops
-      ref:
-        branch: tanzu-java-web-app
+    image: gcr.io/fe-cpage/apps/tanzu-java-web-app-edge-default-bundle:e250c3df-e9da-4d05-8e78-71278d1ce3f0
 
