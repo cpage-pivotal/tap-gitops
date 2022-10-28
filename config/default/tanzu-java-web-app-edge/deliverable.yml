@@ -10,5 +10,5 @@ metadata:
     app.tanzu.vmware.com/deliverable-type: edge
 spec:
   source:
-    image: gcr.io/fe-cpage/apps/tanzu-java-web-app-edge-default-bundle:e250c3df-e9da-4d05-8e78-71278d1ce3f0
+    image: gcr.io/fe-cpage/apps/tanzu-java-web-app-edge-default-bundle:6a6147ad-7308-437d-85b0-79387acecdb9
 
