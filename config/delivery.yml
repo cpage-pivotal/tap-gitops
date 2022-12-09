@@ -28,7 +28,7 @@ spec:
         carto.run/workload-name: realpage
     spec:
       containers:
-      - image: gcr.io/fe-cpage/tap/supply-chain/realpage-default@sha256:6534b2e9f8decf3614f67b649d92ef3375e7ae0c578a076d705456527d992c13
+      - image: harbor.tap.corby.cc/tap/supply-chain/realpage-default@sha256:80863d2160f541b0481a0178cd8cac19e08e0470bba08cace5618409185d6ad0
         name: workload
         resources: {}
         securityContext:
