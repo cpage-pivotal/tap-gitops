@@ -1,7 +1,7 @@
 apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
-  name: realpage
+  name: realpage-example
   annotations:
     ootb.apps.tanzu.vmware.com/servicebinding-workload: "true"
     ootb.apps.tanzu.vmware.com/apidescriptor-ref: "true"
@@ -9,8 +9,10 @@ metadata:
     app.kubernetes.io/part-of: realpage-api
     apps.tanzu.vmware.com/scanning: "true"
     apps.tanzu.vmware.com/workload-type: web
+    kapp.k14s.io/app: "1663618906979073688"
+    kapp.k14s.io/association: v1.33950fdbeddf13acd31fdab747aaee47
     app.kubernetes.io/component: run
-    carto.run/workload-name: realpage
+    carto.run/workload-name: realpage-example
 spec:
   template:
     metadata:
@@ -18,17 +20,20 @@ spec:
         autoscaling.knative.dev/minScale: "1"
         conventions.carto.run/applied-conventions: appliveview-sample/app-live-view-appflavour-check
         developer.conventions/target-containers: workload
-        kubectl.kubernetes.io/last-applied-configuration: |
-          {"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"annotations":{},"labels":{"app.kubernetes.io/part-of":"realpage-api","apps.tanzu.vmware.com/scanning":"true","apps.tanzu.vmware.com/workload-type":"web"},"name":"realpage","namespace":"default"},"spec":{"params":[{"name":"annotations","value":{"autoscaling.knative.dev/minScale":"1"}},{"name":"gitops_repository","value":"ssh://git@github.com/cpage-pivotal/tap-gitops"},{"name":"gitops_branch","value":"realpage-api"}],"source":{"git":{"ref":{"branch":"main"},"url":"https://gitea.tap.corby.cc/gitea_admin/realpage-api.git"}}}}
+        kapp.k14s.io/identity: v1;default/carto.run/Workload/realpage-example;carto.run/v1alpha1
+        kapp.k14s.io/original: '{"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"labels":{"app.kubernetes.io/part-of":"realpage-api","apps.tanzu.vmware.com/scanning":"true","apps.tanzu.vmware.com/workload-type":"web","kapp.k14s.io/app":"1663618906979073688","kapp.k14s.io/association":"v1.33950fdbeddf13acd31fdab747aaee47"},"name":"realpage-example","namespace":"default"},"spec":{"params":[{"name":"annotations","value":{"autoscaling.knative.dev/minScale":"1"}},{"name":"gitops_repository","value":"ssh://git@github.com/cpage-pivotal/tap-gitops"},{"name":"gitops_branch","value":"realpage-api"}],"source":{"git":{"ref":{"branch":"main"},"url":"https://gitea.tap.corby.cc/gitea_admin/realpage-api.git"}}}}'
+        kapp.k14s.io/original-diff-md5: c6e94dc94aed3401b5d0f26ed6c0bff3
       labels:
         app.kubernetes.io/component: run
         app.kubernetes.io/part-of: realpage-api
         apps.tanzu.vmware.com/scanning: "true"
         apps.tanzu.vmware.com/workload-type: web
-        carto.run/workload-name: realpage
+        carto.run/workload-name: realpage-example
+        kapp.k14s.io/app: "1663618906979073688"
+        kapp.k14s.io/association: v1.33950fdbeddf13acd31fdab747aaee47
     spec:
       containers:
-      - image: gcr.io/fe-cpage/tap/supply-chain/realpage-default@sha256:df192dc89d733cee3088fc25459ae27f721beafb46976f88fb44638be8975612
+      - image: gcr.io/fe-cpage/tap/supply-chain/realpage-example-default@sha256:def8f624b414d41169ddd1e3cfa48e09ebd4324ba84c23756ea5cbfffe0fb3cf
         name: workload
         resources: {}
         securityContext:
