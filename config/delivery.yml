@@ -16,8 +16,10 @@ metadata:
     carto.run/workload-name: alcon-sensors
 spec:
   traffic:
-  - percent: 100
+  - percent: 50
     revisionName: alcon-sensors-00001
+  - percent: 50
+    revisionName: alcon-sensors-00002    
   template:
     metadata:
       annotations:
