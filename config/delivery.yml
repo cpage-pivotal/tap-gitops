@@ -15,6 +15,9 @@ metadata:
     app.kubernetes.io/component: run
     carto.run/workload-name: alcon-sensors
 spec:
+  traffic:
+  - percent: 100
+    revisionName: alcon-sensors-00001
   template:
     metadata:
       annotations:
