@@ -54,7 +54,7 @@ spec:
       - env:
         - name: JAVA_TOOL_OPTIONS
           value: -Dmanagement.endpoint.health.probes.add-additional-paths="true" -Dmanagement.health.probes.enabled="true" -Dserver.port="8080"
-        image: gcr.io/fe-cpage/tap/supply-chain/openai-workload-openai@sha256:7c380649773acba984b4dc0465ed0fe49ab385dd6e5e7b01d0ad48926d063c8b
+        image: gcr.io/fe-cpage/tap/supply-chain/openai-workload-openai@sha256:71b2ec2727449beb296b8618f499e03559296fd65e612c7138b06cf7422dd657
         livenessProbe:
           httpGet:
             path: /livez
