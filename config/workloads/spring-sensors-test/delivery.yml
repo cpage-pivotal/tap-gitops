@@ -10,7 +10,7 @@ metadata:
     app.kubernetes.io/part-of: spring-sensors
     apps.tanzu.vmware.com/scanning: "true"
     apps.tanzu.vmware.com/workload-type: web
-    kapp.k14s.io/app: "1684871837906329883"
+    kapp.k14s.io/app: "1684940211122147494"
     kapp.k14s.io/association: v1.6cb9f43f534bf663a9c47642e3739376
     app.kubernetes.io/component: run
     carto.run/workload-name: spring-sensors-test
@@ -33,16 +33,17 @@ spec:
           spring-boot-convention/app-live-view-appflavours-boot
         developer.conventions/target-containers: workload
         kapp.k14s.io/identity: v1;workloads/carto.run/Workload/spring-sensors-test;carto.run/v1alpha1
-        kapp.k14s.io/original: '{"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"labels":{"app.kubernetes.io/part-of":"spring-sensors","apps.tanzu.vmware.com/workload-type":"web","kapp.k14s.io/app":"1684871837906329883","kapp.k14s.io/association":"v1.6cb9f43f534bf663a9c47642e3739376"},"name":"spring-sensors-test","namespace":"workloads"},"spec":{"build":{"env":[{"name":"BP_JVM_VERSION","value":"17"}]},"params":[{"name":"annotations","value":{"autoscaling.knative.dev/minScale":"1"}}],"source":{"git":{"ref":{"branch":"main"},"url":"https://github.com/cpage-pivotal/spring-sensors"}}}}'
+        kapp.k14s.io/original: '{"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"labels":{"app.kubernetes.io/part-of":"spring-sensors","apps.tanzu.vmware.com/scanning":"true","apps.tanzu.vmware.com/workload-type":"web","kapp.k14s.io/app":"1684940211122147494","kapp.k14s.io/association":"v1.6cb9f43f534bf663a9c47642e3739376"},"name":"spring-sensors-test","namespace":"workloads"},"spec":{"build":{"env":[{"name":"BP_JVM_VERSION","value":"17"}]},"params":[{"name":"annotations","value":{"autoscaling.knative.dev/minScale":"1"}},{"name":"gitops_server_address","value":"https://github.com/"},{"name":"gitops_repository_owner","value":"cpage-pivotal"},{"name":"gitops_repository_name","value":"tap-gitops"}],"source":{"git":{"ref":{"branch":"main"},"url":"https://github.com/cpage-pivotal/spring-sensors"}}}}'
         kapp.k14s.io/original-diff-md5: c6e94dc94aed3401b5d0f26ed6c0bff3
       labels:
         app.kubernetes.io/component: run
         app.kubernetes.io/part-of: spring-sensors
         apps.tanzu.vmware.com/auto-configure-actuators: "false"
+        apps.tanzu.vmware.com/scanning: "true"
         apps.tanzu.vmware.com/workload-type: web
         carto.run/workload-name: spring-sensors-test
         conventions.carto.run/framework: spring-boot
-        kapp.k14s.io/app: "1684871837906329883"
+        kapp.k14s.io/app: "1684940211122147494"
         kapp.k14s.io/association: v1.6cb9f43f534bf663a9c47642e3739376
         tanzu.app.live.view: "true"
         tanzu.app.live.view.application.actuator.path: actuator
@@ -54,7 +55,7 @@ spec:
       - env:
         - name: JAVA_TOOL_OPTIONS
           value: -Dmanagement.endpoint.health.probes.add-additional-paths="true" -Dmanagement.health.probes.enabled="true" -Dserver.port="8080" -Dserver.shutdown.grace-period="24s"
-        image: gcr.io/fe-cpage/tap/workloads/spring-sensors-test-workloads@sha256:ddd9652712cf33f454f5cc49087f665b4f70e83695611c7c8740ce2c65cc59a7
+        image: gcr.io/fe-cpage/tap/supply-chain/spring-sensors-test-workloads@sha256:af181846c575da9747502c9e54cfa5cb5f356c993b97dd234ea3bfefe5c06e3c
         livenessProbe:
           httpGet:
             path: /livez
