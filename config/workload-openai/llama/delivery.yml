@@ -1,0 +1,46 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: llama
+  annotations:
+    ootb.apps.tanzu.vmware.com/servicebinding-workload: "true"
+    ootb.apps.tanzu.vmware.com/apidescriptor-ref: "true"
+    kapp.k14s.io/change-rule: upsert after upserting servicebinding.io/ServiceBindings
+  labels:
+    app.kubernetes.io/part-of: openai
+    apps.tanzu.vmware.com/scanning: "true"
+    apps.tanzu.vmware.com/workload-type: web
+    kapp.k14s.io/app: "1682466086870371062"
+    kapp.k14s.io/association: v1.11c7e9579581b7d812294d13514c4f9e
+    app.kubernetes.io/component: run
+    carto.run/workload-name: llama
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/minScale: "1"
+        conventions.carto.run/applied-conventions: |-
+          appliveview-sample/app-live-view-appflavour-check
+          spring-boot-convention/auto-configure-actuators-check
+          spring-boot-convention/app-live-view-appflavour-check
+        developer.conventions/target-containers: workload
+        kapp.k14s.io/identity: v1;workload-openai/carto.run/Workload/llama;carto.run/v1alpha1
+        kapp.k14s.io/original: '{"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"labels":{"app.kubernetes.io/part-of":"openai","apps.tanzu.vmware.com/scanning":"true","apps.tanzu.vmware.com/workload-type":"web","kapp.k14s.io/app":"1682466086870371062","kapp.k14s.io/association":"v1.11c7e9579581b7d812294d13514c4f9e"},"name":"llama","namespace":"workload-openai"},"spec":{"params":[{"name":"annotations","value":{"autoscaling.knative.dev/minScale":"1"}}],"serviceClaims":[{"name":"openai","ref":{"apiVersion":"services.apps.tanzu.vmware.com/v1alpha1","kind":"ResourceClaim","name":"openai-claim"}},{"name":"redis","ref":{"apiVersion":"services.apps.tanzu.vmware.com/v1alpha1","kind":"ResourceClaim","name":"redis-claim"}}],"source":{"git":{"ref":{"branch":"main"},"url":"https://github.com/cpage-pivotal/llama"}}}}'
+        kapp.k14s.io/original-diff-md5: c6e94dc94aed3401b5d0f26ed6c0bff3
+      labels:
+        app.kubernetes.io/component: run
+        app.kubernetes.io/part-of: openai
+        apps.tanzu.vmware.com/scanning: "true"
+        apps.tanzu.vmware.com/workload-type: web
+        carto.run/workload-name: llama
+        kapp.k14s.io/app: "1682466086870371062"
+        kapp.k14s.io/association: v1.11c7e9579581b7d812294d13514c4f9e
+    spec:
+      containers:
+      - image: gcr.io/fe-cpage/tap/supply-chain/llama-workload-openai@sha256:676b5fb3b9dd40ba680240147999b5c98a218f57ad7da5415439796fb8b1e6a0
+        name: workload
+        resources: {}
+        securityContext:
+          runAsUser: 1000
+      serviceAccountName: default
+

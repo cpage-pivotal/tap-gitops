@@ -1,0 +1,73 @@
+apiVersion: kapp.k14s.io/v1alpha1
+kind: Config
+waitRules:
+- conditionMatchers:
+  - type: ServiceAvailable
+    status: "False"
+    failure: true
+  - type: ServiceAvailable
+    status: "True"
+    success: true
+  resourceMatchers:
+  - apiVersionKindMatcher:
+      apiVersion: servicebinding.io/v1alpha3
+      kind: ServiceBinding
+---
+apiVersion: servicebinding.io/v1alpha3
+kind: ServiceBinding
+metadata:
+  name: llama-openai
+  annotations:
+    kapp.k14s.io/identity: v1;workload-openai/carto.run/Workload/llama;carto.run/v1alpha1
+    kapp.k14s.io/original: '{"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"labels":{"app.kubernetes.io/part-of":"openai","apps.tanzu.vmware.com/scanning":"true","apps.tanzu.vmware.com/workload-type":"web","kapp.k14s.io/app":"1682466086870371062","kapp.k14s.io/association":"v1.11c7e9579581b7d812294d13514c4f9e"},"name":"llama","namespace":"workload-openai"},"spec":{"params":[{"name":"annotations","value":{"autoscaling.knative.dev/minScale":"1"}}],"serviceClaims":[{"name":"openai","ref":{"apiVersion":"services.apps.tanzu.vmware.com/v1alpha1","kind":"ResourceClaim","name":"openai-claim"}},{"name":"redis","ref":{"apiVersion":"services.apps.tanzu.vmware.com/v1alpha1","kind":"ResourceClaim","name":"redis-claim"}}],"source":{"git":{"ref":{"branch":"main"},"url":"https://github.com/cpage-pivotal/llama"}}}}'
+    kapp.k14s.io/original-diff-md5: c6e94dc94aed3401b5d0f26ed6c0bff3
+    autoscaling.knative.dev/minScale: "1"
+    kapp.k14s.io/change-group: servicebinding.io/ServiceBindings
+  labels:
+    app.kubernetes.io/part-of: openai
+    apps.tanzu.vmware.com/scanning: "true"
+    apps.tanzu.vmware.com/workload-type: web
+    kapp.k14s.io/app: "1682466086870371062"
+    kapp.k14s.io/association: v1.11c7e9579581b7d812294d13514c4f9e
+    app.kubernetes.io/component: run
+    carto.run/workload-name: llama
+spec:
+  name: openai
+  service:
+    apiVersion: services.apps.tanzu.vmware.com/v1alpha1
+    kind: ResourceClaim
+    name: openai-claim
+  workload:
+    apiVersion: serving.knative.dev/v1
+    kind: Service
+    name: llama
+---
+apiVersion: servicebinding.io/v1alpha3
+kind: ServiceBinding
+metadata:
+  name: llama-redis
+  annotations:
+    kapp.k14s.io/identity: v1;workload-openai/carto.run/Workload/llama;carto.run/v1alpha1
+    kapp.k14s.io/original: '{"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"labels":{"app.kubernetes.io/part-of":"openai","apps.tanzu.vmware.com/scanning":"true","apps.tanzu.vmware.com/workload-type":"web","kapp.k14s.io/app":"1682466086870371062","kapp.k14s.io/association":"v1.11c7e9579581b7d812294d13514c4f9e"},"name":"llama","namespace":"workload-openai"},"spec":{"params":[{"name":"annotations","value":{"autoscaling.knative.dev/minScale":"1"}}],"serviceClaims":[{"name":"openai","ref":{"apiVersion":"services.apps.tanzu.vmware.com/v1alpha1","kind":"ResourceClaim","name":"openai-claim"}},{"name":"redis","ref":{"apiVersion":"services.apps.tanzu.vmware.com/v1alpha1","kind":"ResourceClaim","name":"redis-claim"}}],"source":{"git":{"ref":{"branch":"main"},"url":"https://github.com/cpage-pivotal/llama"}}}}'
+    kapp.k14s.io/original-diff-md5: c6e94dc94aed3401b5d0f26ed6c0bff3
+    autoscaling.knative.dev/minScale: "1"
+    kapp.k14s.io/change-group: servicebinding.io/ServiceBindings
+  labels:
+    app.kubernetes.io/part-of: openai
+    apps.tanzu.vmware.com/scanning: "true"
+    apps.tanzu.vmware.com/workload-type: web
+    kapp.k14s.io/app: "1682466086870371062"
+    kapp.k14s.io/association: v1.11c7e9579581b7d812294d13514c4f9e
+    app.kubernetes.io/component: run
+    carto.run/workload-name: llama
+spec:
+  name: redis
+  service:
+    apiVersion: services.apps.tanzu.vmware.com/v1alpha1
+    kind: ResourceClaim
+    name: redis-claim
+  workload:
+    apiVersion: serving.knative.dev/v1
+    kind: Service
+    name: llama
+
