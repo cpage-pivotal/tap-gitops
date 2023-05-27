@@ -1,0 +1,76 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: openai
+  annotations:
+    ootb.apps.tanzu.vmware.com/servicebinding-workload: "true"
+    ootb.apps.tanzu.vmware.com/apidescriptor-ref: "true"
+    kapp.k14s.io/change-rule: upsert after upserting servicebinding.io/ServiceBindings
+  labels:
+    app.kubernetes.io/part-of: openai
+    apps.tanzu.vmware.com/scanning: "true"
+    apps.tanzu.vmware.com/workload-type: web
+    kapp.k14s.io/app: "1682466086870371062"
+    kapp.k14s.io/association: v1.bb2f64c234bb27c1ae83b805e766deda
+    app.kubernetes.io/component: run
+    carto.run/workload-name: openai
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/minScale: "1"
+        boot.spring.io/version: 3.0.6
+        conventions.carto.run/applied-conventions: |-
+          appliveview-sample/app-live-view-appflavour-check
+          spring-boot-convention/auto-configure-actuators-check
+          spring-boot-convention/spring-boot
+          spring-boot-convention/spring-boot-web
+          spring-boot-convention/spring-boot-actuator
+          spring-boot-convention/spring-boot-actuator-probes
+          spring-boot-convention/app-live-view-appflavour-check
+          spring-boot-convention/app-live-view-connector-boot
+          spring-boot-convention/app-live-view-appflavours-boot
+        developer.conventions/target-containers: workload
+        kapp.k14s.io/identity: v1;workload-openai/carto.run/Workload/openai;carto.run/v1alpha1
+        kapp.k14s.io/original: '{"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"labels":{"app.kubernetes.io/part-of":"openai","apps.tanzu.vmware.com/scanning":"true","apps.tanzu.vmware.com/workload-type":"web","kapp.k14s.io/app":"1682466086870371062","kapp.k14s.io/association":"v1.bb2f64c234bb27c1ae83b805e766deda"},"name":"openai","namespace":"workload-openai"},"spec":{"build":{"env":[{"name":"BP_JVM_VERSION","value":"17"}]},"params":[{"name":"annotations","value":{"autoscaling.knative.dev/minScale":"1"}}],"serviceClaims":[{"name":"openai","ref":{"apiVersion":"services.apps.tanzu.vmware.com/v1alpha1","kind":"ResourceClaim","name":"openai-claim"}}],"source":{"git":{"ref":{"branch":"main"},"url":"https://github.com/cpage-pivotal/dallecool"}}}}'
+        kapp.k14s.io/original-diff-md5: c6e94dc94aed3401b5d0f26ed6c0bff3
+      labels:
+        app.kubernetes.io/component: run
+        app.kubernetes.io/part-of: openai
+        apps.tanzu.vmware.com/auto-configure-actuators: "false"
+        apps.tanzu.vmware.com/scanning: "true"
+        apps.tanzu.vmware.com/workload-type: web
+        carto.run/workload-name: openai
+        conventions.carto.run/framework: spring-boot
+        kapp.k14s.io/app: "1682466086870371062"
+        kapp.k14s.io/association: v1.bb2f64c234bb27c1ae83b805e766deda
+        tanzu.app.live.view: "true"
+        tanzu.app.live.view.application.actuator.path: actuator
+        tanzu.app.live.view.application.actuator.port: "8080"
+        tanzu.app.live.view.application.flavours: spring-boot
+        tanzu.app.live.view.application.name: openai
+    spec:
+      containers:
+      - env:
+        - name: JAVA_TOOL_OPTIONS
+          value: -Dmanagement.endpoint.health.probes.add-additional-paths="true" -Dmanagement.health.probes.enabled="true" -Dserver.port="8080"
+        image: gcr.io/fe-cpage/tap/supply-chain/openai-workload-openai@sha256:7d6f0f70650c8eb55b8486c3d81492e3dab4825a6840fbd6dbe03fe809604b61
+        livenessProbe:
+          httpGet:
+            path: /livez
+            port: 8080
+            scheme: HTTP
+        name: workload
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        readinessProbe:
+          httpGet:
+            path: /readyz
+            port: 8080
+            scheme: HTTP
+        resources: {}
+        securityContext:
+          runAsUser: 1000
+      serviceAccountName: default
+
