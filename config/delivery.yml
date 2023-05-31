@@ -55,7 +55,7 @@ spec:
       - env:
         - name: JAVA_TOOL_OPTIONS
           value: -Dmanagement.endpoint.health.probes.add-additional-paths="true" -Dmanagement.health.probes.enabled="true" -Dserver.port="8080" -Dserver.shutdown.grace-period="24s"
-        image: gcr.io/fe-cpage/tap/supply-chain/spring-sensors-montepio-w01-s001-workloads@sha256:505fac89c16abdfa884859413056a20d80355f4dab17ea42524969d919a4a292
+        image: gcr.io/fe-cpage/tap/supply-chain/spring-sensors-montepio-w01-s001-workloads@sha256:fd1dd0eefd9511784fa67af0a67e7e878b0a4d8df07d774fcabb859ab573b70f
         livenessProbe:
           httpGet:
             path: /livez
