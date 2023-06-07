@@ -19,7 +19,7 @@ spec:
     metadata:
       annotations:
         autoscaling.knative.dev/minScale: "1"
-        boot.spring.io/version: 3.0.2
+        boot.spring.io/version: 3.0.6
         conventions.carto.run/applied-conventions: |-
           appliveview-sample/app-live-view-appflavour-check
           spring-boot-convention/auto-configure-actuators-check
@@ -55,7 +55,7 @@ spec:
       - env:
         - name: JAVA_TOOL_OPTIONS
           value: -Dmanagement.endpoint.health.probes.add-additional-paths="true" -Dmanagement.health.probes.enabled="true" -Dserver.port="8080" -Dserver.shutdown.grace-period="24s"
-        image: gcr.io/fe-cpage/tap/supply-chain/spring-sensors-test-workloads@sha256:7133c7b679c9edc94bd29851dc85169d9b552c8bcb4c87eae5e2fd7664fc41cf
+        image: gcr.io/fe-cpage/tap/supply-chain/spring-sensors-test-workloads@sha256:e2afd7f4ddf815bba94c40619e3b0bd5d705de6c290ed3a50827c097e9c97070
         livenessProbe:
           httpGet:
             path: /livez
