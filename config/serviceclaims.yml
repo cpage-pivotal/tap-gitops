@@ -1,0 +1,44 @@
+apiVersion: kapp.k14s.io/v1alpha1
+kind: Config
+waitRules:
+- conditionMatchers:
+  - type: ServiceAvailable
+    status: "False"
+    failure: true
+  - type: ServiceAvailable
+    status: "True"
+    success: true
+  resourceMatchers:
+  - apiVersionKindMatcher:
+      apiVersion: servicebinding.io/v1alpha3
+      kind: ServiceBinding
+---
+apiVersion: servicebinding.io/v1alpha3
+kind: ServiceBinding
+metadata:
+  name: spring-sensors-aabraham-1699850344-w01-s001-db
+  annotations:
+    kapp.k14s.io/identity: v1;workloads/carto.run/Workload/spring-sensors-aabraham-1699850344-w01-s001;carto.run/v1alpha1
+    kapp.k14s.io/original: '{"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"labels":{"app.kubernetes.io/part-of":"spring-sensors","apps.tanzu.vmware.com/scanning":"true","apps.tanzu.vmware.com/workload-type":"web","kapp.k14s.io/app":"1683383963062903318","kapp.k14s.io/association":"v1.48cb222fc6e8742fab46ee62a4231651"},"name":"spring-sensors-aabraham-1699850344-w01-s001","namespace":"workloads"},"spec":{"build":{"env":[{"name":"BP_JVM_VERSION","value":"17"}]},"params":[{"name":"annotations","value":{"autoscaling.knative.dev/minScale":"1"}},{"name":"gitops_repository","value":"ssh://git@github.com/cpage-pivotal/tap-gitops"},{"name":"gitops_branch","value":"spring-sensors-aabraham-1699850344-w01-s001"}],"resources":{"limits":{"memory":"512Mi"},"requests":{"cpu":"500m","memory":"512Mi"}},"serviceClaims":[{"name":"db","ref":{"apiVersion":"services.apps.tanzu.vmware.com/v1alpha1","kind":"ClassClaim","name":"sensors-mysql"}}],"source":{"git":{"ref":{"branch":"main"},"url":"https://gitea.workshop.amer.end2end.link/gitea_admin/aabraham-1699850344-w01-s001-1699850391.git"}}}}'
+    kapp.k14s.io/original-diff-md5: c6e94dc94aed3401b5d0f26ed6c0bff3
+    autoscaling.knative.dev/minScale: "1"
+    kapp.k14s.io/change-group: servicebinding.io/ServiceBindings
+  labels:
+    app.kubernetes.io/part-of: spring-sensors
+    apps.tanzu.vmware.com/scanning: "true"
+    apps.tanzu.vmware.com/workload-type: web
+    kapp.k14s.io/app: "1683383963062903318"
+    kapp.k14s.io/association: v1.48cb222fc6e8742fab46ee62a4231651
+    app.kubernetes.io/component: run
+    carto.run/workload-name: spring-sensors-aabraham-1699850344-w01-s001
+spec:
+  name: db
+  service:
+    apiVersion: services.apps.tanzu.vmware.com/v1alpha1
+    kind: ClassClaim
+    name: sensors-mysql
+  workload:
+    apiVersion: serving.knative.dev/v1
+    kind: Service
+    name: spring-sensors-aabraham-1699850344-w01-s001
+
