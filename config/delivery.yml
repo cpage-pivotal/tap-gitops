@@ -41,8 +41,6 @@ spec:
         apps.tanzu.vmware.com/workload-type: web
         carto.run/workload-name: spring-sensors-cdelashmutt-1703289303-w01-s001
         conventions.carto.run/framework: spring-boot
-        kapp.k14s.io/app: "1683383963062903318"
-        kapp.k14s.io/association: v1.abb182a2388009b6e5fb44105c88dea5
         tanzu.app.live.view: "true"
         tanzu.app.live.view.application.actuator.path: actuator
         tanzu.app.live.view.application.actuator.port: "8080"
