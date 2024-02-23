@@ -1,0 +1,78 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: spring-sensors-fmartin-1708677149-w01-s001
+  annotations:
+    ootb.apps.tanzu.vmware.com/servicebinding-workload: "true"
+    ootb.apps.tanzu.vmware.com/apidescriptor-ref: "true"
+    kapp.k14s.io/change-rule: upsert after upserting servicebinding.io/ServiceBindings
+  labels:
+    app.kubernetes.io/part-of: spring-sensors
+    apps.tanzu.vmware.com/scanning: "true"
+    apps.tanzu.vmware.com/workload-type: web
+    app.kubernetes.io/component: run
+    carto.run/workload-name: spring-sensors-fmartin-1708677149-w01-s001
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/minScale: "1"
+        boot.spring.io/version: 3.1.4
+        conventions.carto.run/applied-conventions: |-
+          appliveview-sample/app-live-view-appflavour-check
+          spring-boot-convention/auto-configure-actuators-check
+          spring-boot-convention/spring-boot
+          spring-boot-convention/spring-boot-graceful-shutdown
+          spring-boot-convention/spring-boot-web
+          spring-boot-convention/spring-boot-actuator
+          spring-boot-convention/spring-boot-actuator-probes
+          spring-boot-convention/app-live-view-appflavour-check
+          spring-boot-convention/app-live-view-connector-boot
+          spring-boot-convention/app-live-view-appflavours-boot
+        developer.conventions/target-containers: workload
+        kapp.k14s.io/identity: v1;workloads/carto.run/Workload/spring-sensors-fmartin-1708677149-w01-s001;carto.run/v1alpha1
+        kapp.k14s.io/original: '{"apiVersion":"carto.run/v1alpha1","kind":"Workload","metadata":{"labels":{"app.kubernetes.io/part-of":"spring-sensors","apps.tanzu.vmware.com/scanning":"true","apps.tanzu.vmware.com/workload-type":"web","kapp.k14s.io/app":"1683383963062903318","kapp.k14s.io/association":"v1.482e6a5e1643c67e729fd742f1c172c2"},"name":"spring-sensors-fmartin-1708677149-w01-s001","namespace":"workloads"},"spec":{"build":{"env":[{"name":"BP_JVM_VERSION","value":"17"}]},"params":[{"name":"annotations","value":{"autoscaling.knative.dev/minScale":"1"}},{"name":"gitops_repository","value":"ssh://git@github.com/cpage-pivotal/tap-gitops"},{"name":"gitops_branch","value":"spring-sensors-fmartin-1708677149-w01-s001"}],"resources":{"limits":{"memory":"768Mi"},"requests":{"cpu":"500m","memory":"768Mi"}},"serviceClaims":[{"name":"db","ref":{"apiVersion":"services.apps.tanzu.vmware.com/v1alpha1","kind":"ClassClaim","name":"sensors-mysql"}}],"source":{"git":{"ref":{"branch":"main"},"url":"https://gitea.workshop.amer.end2end.link/gitea_admin/fmartin-1708677149-w01-s001-1708677236.git"}}}}'
+        kapp.k14s.io/original-diff-md5: c6e94dc94aed3401b5d0f26ed6c0bff3
+      labels:
+        app.kubernetes.io/component: run
+        app.kubernetes.io/part-of: spring-sensors
+        apps.tanzu.vmware.com/auto-configure-actuators: "false"
+        apps.tanzu.vmware.com/scanning: "true"
+        apps.tanzu.vmware.com/workload-type: web
+        carto.run/workload-name: spring-sensors-fmartin-1708677149-w01-s001
+        conventions.carto.run/framework: spring-boot
+        tanzu.app.live.view: "true"
+        tanzu.app.live.view.application.actuator.path: actuator
+        tanzu.app.live.view.application.actuator.port: "8080"
+        tanzu.app.live.view.application.flavours: spring-boot
+        tanzu.app.live.view.application.name: spring-sensors-fmartin-1708677149-w01-s001
+    spec:
+      containers:
+      - env:
+        - name: JAVA_TOOL_OPTIONS
+          value: -Dmanagement.endpoint.health.probes.add-additional-paths="true" -Dmanagement.health.probes.enabled="true" -Dserver.port="8080" -Dserver.shutdown.grace-period="24s"
+        image: gcr.io/fe-cpage/tap/supply-chain/spring-sensors-fmartin-1708677149-w01-s001-workloads@sha256:ead6d07ae36c589e0025bb5412844cd867a867bbeb103b6923bc31e318707855
+        livenessProbe:
+          httpGet:
+            path: /livez
+            port: 8080
+            scheme: HTTP
+        name: workload
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        readinessProbe:
+          httpGet:
+            path: /readyz
+            port: 8080
+            scheme: HTTP
+        resources:
+          limits:
+            memory: 768Mi
+          requests:
+            cpu: 500m
+            memory: 768Mi
+        securityContext:
+          runAsUser: 1000
+      serviceAccountName: default
+
